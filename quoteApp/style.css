@@ -1,0 +1,73 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  max-width: 600px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightblue;
+
+  padding-inline: 2rem;
+}
+
+main {
+  padding-inline: 2rem;
+  margin-top: 2rem;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background-color: rgb(27, 27, 205);
+
+  font-size: 1rem;
+  color: snow;
+  font-weight: 600;
+
+  border-radius: 5px;
+
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+
+  box-shadow: 3px 3px snow;
+  transition: box-shadow 0.05s ease-in-out;
+}
+
+button:active {
+  box-shadow: 1px 1px snow;
+}
+
+.quote {
+  font-size: 2rem;
+}
+
+.quote::before {
+  content: "\201C  ";
+  font-size: 2.5rem;
+  color: rgba(128, 128, 128, 0.5);
+}
+
+.quote::after {
+  content: " \201D";
+  font-size: 2.5rem;
+  color: rgba(128, 128, 128, 0.5);
+}
+
+.author::before {
+  content: "\2014";
+}

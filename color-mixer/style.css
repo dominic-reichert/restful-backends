@@ -1,0 +1,49 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 24px;
+  font-family: monospace;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem;
+
+  background-color: hsla(0, 100%, 99%, 0.6);
+}
+
+#red {
+  accent-color: red;
+}
+
+#green {
+  accent-color: green;
+}
+
+#blue {
+  accent-color: blue;
+}
+
+input + label {
+  margin-left: 1rem;
+}
+
+button {
+  border: 2px solid black;
+  border-radius: 5px;
+
+  font-size: 1rem;
+}
