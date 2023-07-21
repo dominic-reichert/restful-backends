@@ -2,7 +2,7 @@ const delButton = document.querySelector(".delete");
 const form = document.querySelector("form");
 const inputText = document.querySelector("input[type=text]");
 const todoList = document.querySelector("#todo-list");
-const filterArea = document.querySelector(".filter-area");
+const filterArea = document.querySelector(".filter-container");
 
 let todos = [];
 
@@ -56,18 +56,31 @@ function renderTodos() {
     const checkboxElement = document.createElement("input");
     checkboxElement.setAttribute("type", "checkbox");
     checkboxElement.checked = todo.done;
+    checkboxElement.id = `todo-${todo.id}`;
     newLiElement.appendChild(checkboxElement);
 
-    const todoText = document.createTextNode(todo.description);
-    newLiElement.appendChild(todoText);
+    const description = document.createElement("label");
+    description.setAttribute("for", checkboxElement.id);
+    description.innerText = todo.description;
+    newLiElement.append(description);
+
+    if (todo.done === true) {
+      newLiElement.classList.add("done");
+    }
 
     newLiElement.todo = todo;
 
-    todoList.append(newLiElement);
+    todoList.appendChild(newLiElement);
   });
 }
 
-function addNewTodo() {
+function addNewTodo(event) {
+  event.preventDefault();
+
+  if (checkForDuplicate(inputText.value)) {
+    return;
+  }
+
   const newTodo = {
     description: inputText.value,
     done: false,
@@ -83,12 +96,23 @@ function addNewTodo() {
     .then((res) => res.json())
     .then((newtodoFromApi) => {
       todos.push(newtodoFromApi);
-      console.log(todos);
       renderTodos();
     });
 }
 
 form.addEventListener("submit", addNewTodo);
+
+function checkForDuplicate(newTodo) {
+  newTodo = newTodo.toLowerCase();
+
+  for (let i = 0; i < todos.length; i++) {
+    const currentTodo = todos[i];
+    if (currentTodo.description.toLowerCase() === newTodo) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function updateDoneState(event) {
   const checkbox = event.target;

@@ -13,8 +13,15 @@
         <h1>My To-Dos</h1>
     </header>
     <main>
-        <div class="filter">
-            <div class="filter-area">
+
+        <form class="input-container">
+            <input type="text" name="todo-input" id="todo">
+            <button class="add">Add To-Do</button>
+        </form>
+
+        <div class="filters">
+            <h2>Filters</h2>
+            <div class="filter-container">
                 <label for="all"><input type="radio" name="radio-filter" id="all" value="all" checked>All</label>
                 <label for="open"><input type="radio" name="radio-filter" id="open" value="open">Open</label>
                 <label for="done"><input type="radio" name="radio-filter" id="done" value="done">Done</label>
@@ -22,10 +29,7 @@
             <button class="delete">Remove finished To-Dos</button>
         </div>
 
-        <form>
-            <input type="text" name="todo-input" id="todo">
-            <button class="add">Add To-Do</button>
-        </form>
+
         <ul id="todo-list"></ul>
     </main>
     <script src="script.js"></script>
