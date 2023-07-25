@@ -11,7 +11,6 @@ function loadTodos() {
     .then((res) => res.json())
     .then((todosFromApi) => {
       todos = todosFromApi;
-      console.log(todos);
       renderTodos();
     });
 }
@@ -30,7 +29,7 @@ function updateTodos(updatedTodo) {
 }
 
 function deleteDoneTodos() {
-  todos.forEach((todo) => {
+  for (let todo of todos) {
     id = todo.id;
     if (todo.done === true) {
       fetch(`http://localhost:4730/todos/${id}`, {
@@ -43,7 +42,7 @@ function deleteDoneTodos() {
         .then(console.log("Delete successful"));
       loadTodos();
     }
-  });
+  }
 }
 
 delButton.addEventListener("click", deleteDoneTodos);
@@ -98,6 +97,8 @@ function addNewTodo(event) {
       todos.push(newtodoFromApi);
       renderTodos();
     });
+
+  inputText.value = "";
 }
 
 form.addEventListener("submit", addNewTodo);
@@ -147,3 +148,4 @@ function filterTodos() {
 filterArea.addEventListener("change", filterTodos);
 
 loadTodos();
+inputText.focus();
