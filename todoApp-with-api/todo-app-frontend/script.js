@@ -29,21 +29,54 @@ function updateTodos(updatedTodo) {
 }
 
 function deleteDoneTodos() {
+  const urls = [];
   for (let todo of todos) {
     id = todo.id;
     if (todo.done === true) {
-      fetch(`http://localhost:4730/todos/${id}`, {
+      urls.push(`http://localhost:4730/todos/${id}`);
+    }
+  }
+
+  Promise.all(
+    urls.map((url) => {
+      fetch(url, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       })
-        .then((res) => res.json())
+        .then((response) => console.log(response.status))
         .then(console.log("Delete successful"));
-      loadTodos();
-    }
-  }
+    })
+  );
+
+  loadTodos();
 }
+
+/* 
+#### Alternative way to wait for all delete repsonses from api ####
+
+async function deleteDoneTodos() {
+  const deleteResults = await Promise.allSettled(
+    todos
+      .filter(({ done }) => done)
+      .map(({ id }) =>
+        fetch(`http://localhost:4730/todos/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+      )
+  );
+  loadTodos();
+  const isAllOk = deleteResults.every(
+    (result) => result.status === "fulfilled" && result.value.ok
+  );
+  if (!isAllOk) {
+    throw new Error("Delete not successful");
+  }
+} */
 
 delButton.addEventListener("click", deleteDoneTodos);
 
