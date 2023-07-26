@@ -44,13 +44,11 @@ function deleteDoneTodos() {
         headers: {
           "Content-Type": "application/json",
         },
-      })
-        .then((response) => console.log(response.status))
-        .then(console.log("Delete successful"));
+      });
     })
-  );
-
-  loadTodos();
+  )
+    .then(() => console.log("Delete successful"))
+    .then(() => loadTodos());
 }
 
 /* 
